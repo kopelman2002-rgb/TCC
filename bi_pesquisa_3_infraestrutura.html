@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Infraestrutura e capacidade instalada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>:root{--acento:#5C3250;--acento2:#9B6A89}
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --papel:#E6E8E7; --tinta:#191F24; --fio:#C4C8C6; --fio-forte:#8E9693;
+  --suave:#5C6560; --bloco:#DCDFDD;
+}
+:root:not([data-theme="light"]){ }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papel:#14181A; --tinta:#E4E7E5; --fio:#2C3337; --fio-forte:#505A5E;
+    --suave:#9BA4A0; --bloco:#1C2225;
+  }
+}
+:root[data-theme="dark"]{
+  --papel:#14181A; --tinta:#E4E7E5; --fio:#2C3337; --fio-forte:#505A5E;
+  --suave:#9BA4A0; --bloco:#1C2225;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papel); color:var(--tinta);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.55;
+}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px 90px}
+h1,h2,h3,.sans,th,.num,.cod,.cifra,.etq{
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+}
+.num,.cifra,td.v{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+/* masthead */
+header.topo{border-bottom:3px solid var(--tinta);padding:40px 0 18px;margin-bottom:0}
+.serie{font-family:Archivo,Arial,sans-serif;font-size:13px;letter-spacing:.14em;
+  color:var(--acento);font-weight:600;margin:0 0 10px}
+h1{font-size:clamp(30px,5.2vw,50px);line-height:1.04;font-weight:700;
+  letter-spacing:-.022em;margin:0 0 12px;max-width:17ch}
+.sub{font-size:19px;color:var(--suave);margin:0 0 26px;max-width:62ch;line-height:1.5}
+.painel{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--fio)}
+.painel div{flex:1 1 170px;padding:14px 20px 14px 0;border-right:1px solid var(--fio)}
+.painel div:last-child{border-right:0}
+.cifra{display:block;font-size:27px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.etq{display:block;font-size:12.5px;color:var(--suave);margin-top:3px;line-height:1.35}
+
+/* secoes */
+section{padding:46px 0 10px;border-bottom:1px solid var(--fio)}
+section:last-of-type{border-bottom:0}
+.cab{display:flex;gap:16px;align-items:baseline;margin-bottom:6px}
+.cod{flex:0 0 auto;font-size:13px;font-weight:700;color:var(--papel);
+  background:var(--acento);padding:3px 8px;border-radius:2px;letter-spacing:.04em}
+h2{font-size:25px;font-weight:600;letter-spacing:-.016em;margin:0;line-height:1.2}
+.leitura{color:var(--suave);max-width:70ch;margin:10px 0 24px;font-size:16.5px}
+.leitura b{color:var(--tinta);font-weight:600}
+
+/* tabelas */
+.rolagem{overflow-x:auto;margin:0 -20px;padding:0 20px}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:460px}
+th{text-align:left;font-size:12px;font-weight:600;letter-spacing:.05em;
+  color:var(--suave);padding:0 12px 7px 0;border-bottom:1.5px solid var(--fio-forte);
+  vertical-align:bottom}
+th.v,td.v{text-align:right;padding-right:12px}
+th.v{padding-left:16px}
+th.v:last-child,td.v:last-child{padding-right:0}
+td{padding:8px 12px 8px 0;border-bottom:1px solid var(--fio);vertical-align:top}
+td.v{padding-left:14px;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tbody tr.total td{border-top:1.5px solid var(--fio-forte);font-weight:700}
+.rot{font-weight:600}
+
+/* barras css */
+.barras{margin:4px 0 0}
+.lin{display:grid;grid-template-columns:minmax(120px,30%) 1fr auto;gap:12px;
+  align-items:center;padding:6px 0;border-bottom:1px solid var(--fio)}
+.lin:last-child{border-bottom:0}
+.lin .nm{font-size:14.5px;line-height:1.3}
+.trilho{display:flex;height:13px;background:var(--bloco)}
+.barra{display:block;height:100%;background:var(--acento);min-width:2px}
+.barra.alt{background:var(--acento2)}
+.lin .vl{font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap;
+  font-family:Archivo,Arial,sans-serif;font-weight:600}
+.empilhada{display:flex;height:17px;background:var(--bloco)}
+.empilhada span{height:100%}
+.legenda{display:flex;flex-wrap:wrap;gap:16px;margin:14px 0 18px;font-size:13.5px;
+  font-family:Archivo,Arial,sans-serif}
+.legenda i{display:inline-block;width:11px;height:11px;margin-right:6px;
+  vertical-align:-1px;font-style:normal}
+
+/* nota de ressalva */
+.nota{border-left:3px solid var(--acento);background:var(--bloco);
+  padding:13px 16px;margin:22px 0 4px;font-size:15.5px;max-width:72ch}
+.nota b{font-weight:600}
+.fonte{font-size:12.5px;color:var(--suave);margin-top:14px;
+  font-family:Archivo,Arial,sans-serif}
+
+footer{padding:38px 0 0;border-top:3px solid var(--tinta);margin-top:46px;
+  font-size:14px;color:var(--suave)}
+footer p{margin:0 0 10px;max-width:74ch}
+.navega{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:14px;
+  font-family:Archivo,Arial,sans-serif}
+.navega a{color:var(--acento);text-decoration:none;border-bottom:1px solid currentColor;
+  padding-bottom:1px}
+.navega a:hover,.navega a:focus{color:var(--tinta)}
+a:focus-visible{outline:2px solid var(--acento);outline-offset:3px}
+@media (max-width:620px){
+  body{font-size:16px}
+  .lin{grid-template-columns:1fr auto;gap:4px 10px}
+  .lin .trilho{grid-column:1/-1;order:3}
+  .painel div{flex:1 1 130px;padding-right:14px}
+}
+@media print{
+  body{background:#fff;color:#000}
+  .rolagem{overflow:visible}
+  section{break-inside:avoid}
+}
+</style>
+</head><body><div class="wrap">
+<header class="topo">
+  <p class="serie">Pesquisa 3 de 3</p>
+  <h1>Infraestrutura e capacidade instalada</h1>
+  <p class="sub">Que perfis de capacidade instalada podem ser inferidos a partir de variáveis cadastrais, e como esses perfis se diferenciam entre setores de atividade.</p>
+  <div class="painel"><div><span class="cifra">1.006.894</span><span class="etq">empresas no índice</span></div><div><span class="cifra">R$ 1.000 · R$ 20,7 mi</span><span class="etq">mediana e média, porte "demais"</span></div><div><span class="cifra">83–97%</span><span class="etq">com sócio único</span></div><div><span class="cifra">5</span><span class="etq">perfis identificados</span></div></div>
+</header>
+<section id="e1">
+  <div class="cab"><span class="cod">E1</span><h2>Capital social declarado por porte</h2></div>
+  <p class="leitura">A distância entre mediana e média expõe a assimetria da variável. Nas empresas de porte "demais", a mediana é de <b>R$ 1.000</b> e a média, de <b>R$ 20,7 milhões</b> — uma diferença de quatro ordens de grandeza, produzida por uma cauda de poucos valores extremos.</p>
+  <div class="rolagem"><table><thead><tr><th>Porte</th><th class="v">Empresas</th><th class="v">Q25</th><th class="v">Mediana</th><th class="v">Q75</th><th class="v">P95</th><th class="v">Média</th></tr></thead><tbody><tr><td class="rot">Demais</td><td class="v">140.232</td><td class="v">R$ 0</td><td class="v">R$ 1.000</td><td class="v">R$ 20.000</td><td class="v">R$ 3.150.000</td><td class="v">R$ 20.730.499</td></tr><tr><td class="rot">Empresa de pequeno porte</td><td class="v">62.814</td><td class="v">R$ 10.000</td><td class="v">R$ 30.000</td><td class="v">R$ 100.000</td><td class="v">R$ 500.000</td><td class="v">R$ 394.686</td></tr><tr><td class="rot">Microempresa</td><td class="v">803.848</td><td class="v">R$ 1.000</td><td class="v">R$ 2.000</td><td class="v">R$ 10.000</td><td class="v">R$ 95.400</td><td class="v">R$ 132.210</td></tr></tbody></table></div><div class="nota">Essa assimetria é a razão de todo índice construído sobre capital social neste trabalho aplicar transformação logarítmica e truncamento de escores. Sem esse tratamento, poucas empresas determinariam qualquer resultado agregado.</div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section><section id="e2">
+  <div class="cab"><span class="cod">E2</span><h2>Estrutura do quadro societário</h2></div>
+  <p class="leitura">O sócio único predomina em todo o tecido, variando de <b>60,03%</b> em saúde a <b>96,60%</b> em transporte e armazenagem. A presença de sócio pessoa jurídica, indicador de estrutura de capital mais complexa, é residual na maioria das seções e chega a 14,06% na saúde.</p>
+  <div class="barras"><div class="lin"><span class="nm">Comércio</span><span class="trilho"><span class="barra" style="width:86.3%"></span></span><span class="vl">83,39%</span></div><div class="lin"><span class="nm">Atividades administrativas</span><span class="trilho"><span class="barra" style="width:92.1%"></span></span><span class="vl">88,97%</span></div><div class="lin"><span class="nm">Outros serviços</span><span class="trilho"><span class="barra" style="width:97.0%"></span></span><span class="vl">93,72%</span></div><div class="lin"><span class="nm">Transporte e armazenagem</span><span class="trilho"><span class="barra" style="width:100.0%"></span></span><span class="vl">96,60%</span></div><div class="lin"><span class="nm">Profissionais e técnicas</span><span class="trilho"><span class="barra" style="width:79.2%"></span></span><span class="vl">76,55%</span></div><div class="lin"><span class="nm">Alojamento e alimentação</span><span class="trilho"><span class="barra" style="width:93.0%"></span></span><span class="vl">89,79%</span></div><div class="lin"><span class="nm">Indústrias de transformação</span><span class="trilho"><span class="barra" style="width:96.0%"></span></span><span class="vl">92,77%</span></div><div class="lin"><span class="nm">Saúde humana e serviço social</span><span class="trilho"><span class="barra" style="width:62.1%"></span></span><span class="vl">60,03%</span></div><div class="lin"><span class="nm">Educação</span><span class="trilho"><span class="barra" style="width:92.0%"></span></span><span class="vl">88,83%</span></div><div class="lin"><span class="nm">Construção</span><span class="trilho"><span class="barra" style="width:87.7%"></span></span><span class="vl">84,67%</span></div><div class="lin"><span class="nm">Informação e comunicação</span><span class="trilho"><span class="barra" style="width:80.8%"></span></span><span class="vl">78,09%</span></div><div class="lin"><span class="nm">Atividades financeiras</span><span class="trilho"><span class="barra" style="width:74.0%"></span></span><span class="vl">71,44%</span></div><div class="lin"><span class="nm">Artes, cultura, esporte e recreação</span><span class="trilho"><span class="barra" style="width:81.9%"></span></span><span class="vl">79,07%</span></div><div class="lin"><span class="nm">Atividades imobiliárias</span><span class="trilho"><span class="barra" style="width:40.0%"></span></span><span class="vl">38,61%</span></div></div><div class="rolagem"><table><thead><tr><th>Seção CNAE</th><th class="v">Empresas</th><th class="v">Sócio único</th><th class="v">Com sócio PJ</th><th class="v">Capital por sócio</th></tr></thead><tbody><tr><td class="rot">Comércio</td><td class="v">171.172</td><td class="v">83,39%</td><td class="v">0,79%</td><td class="v">R$ 25.000</td></tr><tr><td class="rot">Atividades administrativas</td><td class="v">113.706</td><td class="v">88,97%</td><td class="v">0,86%</td><td class="v">R$ 10.000</td></tr><tr><td class="rot">Outros serviços</td><td class="v">102.906</td><td class="v">93,72%</td><td class="v">0,09%</td><td class="v">R$ 0</td></tr><tr><td class="rot">Transporte e armazenagem</td><td class="v">94.418</td><td class="v">96,60%</td><td class="v">0,42%</td><td class="v">R$ 30.000</td></tr><tr><td class="rot">Profissionais e técnicas</td><td class="v">92.582</td><td class="v">76,55%</td><td class="v">1,92%</td><td class="v">R$ 5.000</td></tr><tr><td class="rot">Alojamento e alimentação</td><td class="v">81.785</td><td class="v">89,79%</td><td class="v">0,72%</td><td class="v">R$ 25.000</td></tr><tr><td class="rot">Indústrias de transformação</td><td class="v">60.798</td><td class="v">92,77%</td><td class="v">0,54%</td><td class="v">R$ 25.000</td></tr><tr><td class="rot">Saúde humana e serviço social</td><td class="v">59.992</td><td class="v">60,03%</td><td class="v">14,06%</td><td class="v">R$ 5.000</td></tr><tr><td class="rot">Educação</td><td class="v">53.224</td><td class="v">88,83%</td><td class="v">0,38%</td><td class="v">R$ 5.000</td></tr><tr><td class="rot">Construção</td><td class="v">52.108</td><td class="v">84,67%</td><td class="v">4,76%</td><td class="v">R$ 50.000</td></tr><tr><td class="rot">Informação e comunicação</td><td class="v">45.235</td><td class="v">78,09%</td><td class="v">2,00%</td><td class="v">R$ 5.000</td></tr><tr><td class="rot">Atividades financeiras</td><td class="v">32.108</td><td class="v">71,44%</td><td class="v">5,64%</td><td class="v">R$ 25.000</td></tr><tr><td class="rot">Artes, cultura, esporte e recreação</td><td class="v">20.809</td><td class="v">79,07%</td><td class="v">0,83%</td><td class="v">R$ 5.000</td></tr><tr><td class="rot">Atividades imobiliárias</td><td class="v">13.019</td><td class="v">38,61%</td><td class="v">10,16%</td><td class="v">R$ 41.667</td></tr></tbody></table></div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section><section id="e2c">
+  <div class="cab"><span class="cod">E2c</span><h2>Faixa etária dos sócios</h2></div>
+  <p class="leitura">Mais de <b>70%</b> dos vínculos societários pertencem a pessoas com mais de 40 anos, e 17,80% a pessoas acima de 70. Sócios com até 30 anos representam 4,63% do total.</p>
+  <div class="barras"><div class="lin"><span class="nm">41 a 50</span><span class="trilho"><span class="barra" style="width:100.0%"></span></span><span class="vl">22,26%</span></div><div class="lin"><span class="nm">51 a 60</span><span class="trilho"><span class="barra" style="width:92.0%"></span></span><span class="vl">20,49%</span></div><div class="lin"><span class="nm">61 a 70</span><span class="trilho"><span class="barra" style="width:78.7%"></span></span><span class="vl">17,51%</span></div><div class="lin"><span class="nm">31 a 40</span><span class="trilho"><span class="barra" style="width:60.1%"></span></span><span class="vl">13,37%</span></div><div class="lin"><span class="nm">71 a 80</span><span class="trilho"><span class="barra" style="width:48.7%"></span></span><span class="vl">10,84%</span></div><div class="lin"><span class="nm">Maior de 80</span><span class="trilho"><span class="barra" style="width:31.3%"></span></span><span class="vl">6,96%</span></div><div class="lin"><span class="nm">21 a 30</span><span class="trilho"><span class="barra" style="width:19.9%"></span></span><span class="vl">4,43%</span></div><div class="lin"><span class="nm">Não se aplica</span><span class="trilho"><span class="barra" style="width:17.7%"></span></span><span class="vl">3,93%</span></div><div class="lin"><span class="nm">13 a 20</span><span class="trilho"><span class="barra" style="width:0.9%"></span></span><span class="vl">0,20%</span></div><div class="lin"><span class="nm">0 a 12</span><span class="trilho"><span class="barra" style="width:0.4%"></span></span><span class="vl">0,03%</span></div></div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08. Dados agregados; a base não contém nome nem CPF de sócio pessoa física.</p>
+</section><section id="e3">
+  <div class="cab"><span class="cod">E3</span><h2>Escopo operacional declarado</h2></div>
+  <p class="leitura">A quantidade de CNAEs secundários funciona como aproximação da amplitude de atuação. <b>Informação e comunicação</b> lidera com 4,15 em média, e 54,80% dessas empresas declaram escopo ampliado, com três ou mais atividades secundárias.</p>
+  <div class="barras"><div class="lin"><span class="nm">Informação e comunicação</span><span class="trilho"><span class="barra" style="width:100.0%"></span></span><span class="vl">4,15</span></div><div class="lin"><span class="nm">Artes, cultura, esporte e recreação</span><span class="trilho"><span class="barra" style="width:88.7%"></span></span><span class="vl">3,68</span></div><div class="lin"><span class="nm">Construção</span><span class="trilho"><span class="barra" style="width:80.2%"></span></span><span class="vl">3,33</span></div><div class="lin"><span class="nm">Água, esgoto e resíduos</span><span class="trilho"><span class="barra" style="width:71.3%"></span></span><span class="vl">2,96</span></div><div class="lin"><span class="nm">Eletricidade e gás</span><span class="trilho"><span class="barra" style="width:59.8%"></span></span><span class="vl">2,48</span></div><div class="lin"><span class="nm">Indústrias extrativas</span><span class="trilho"><span class="barra" style="width:59.3%"></span></span><span class="vl">2,46</span></div><div class="lin"><span class="nm">Comércio</span><span class="trilho"><span class="barra" style="width:59.0%"></span></span><span class="vl">2,45</span></div><div class="lin"><span class="nm">Agropecuária</span><span class="trilho"><span class="barra" style="width:58.8%"></span></span><span class="vl">2,44</span></div><div class="lin"><span class="nm">Indústrias de transformação</span><span class="trilho"><span class="barra" style="width:53.7%"></span></span><span class="vl">2,23</span></div><div class="lin"><span class="nm">Profissionais e técnicas</span><span class="trilho"><span class="barra" style="width:51.8%"></span></span><span class="vl">2,15</span></div><div class="lin"><span class="nm">Saúde humana e serviço social</span><span class="trilho"><span class="barra" style="width:51.6%"></span></span><span class="vl">2,14</span></div><div class="lin"><span class="nm">Atividades imobiliárias</span><span class="trilho"><span class="barra" style="width:49.2%"></span></span><span class="vl">2,04</span></div><div class="lin"><span class="nm">Educação</span><span class="trilho"><span class="barra" style="width:48.7%"></span></span><span class="vl">2,02</span></div><div class="lin"><span class="nm">Atividades administrativas</span><span class="trilho"><span class="barra" style="width:40.2%"></span></span><span class="vl">1,67</span></div></div><div class="rolagem"><table><thead><tr><th>Seção CNAE</th><th class="v">Empresas</th><th class="v">CNAEs sec. médio</th><th class="v">Escopo ampliado</th><th class="v">Multiunidade</th><th class="v">Idade mediana</th></tr></thead><tbody><tr><td class="rot">Informação e comunicação</td><td class="v">45.235</td><td class="v">4,15</td><td class="v">54,80%</td><td class="v">0,42%</td><td class="v">4,75 anos</td></tr><tr><td class="rot">Artes, cultura, esporte e recreação</td><td class="v">20.809</td><td class="v">3,68</td><td class="v">44,60%</td><td class="v">0,70%</td><td class="v">5,67 anos</td></tr><tr><td class="rot">Construção</td><td class="v">52.108</td><td class="v">3,33</td><td class="v">43,37%</td><td class="v">1,09%</td><td class="v">5,00 anos</td></tr><tr><td class="rot">Água, esgoto e resíduos</td><td class="v">1.465</td><td class="v">2,96</td><td class="v">40,07%</td><td class="v">1,84%</td><td class="v">4,67 anos</td></tr><tr><td class="rot">Eletricidade e gás</td><td class="v">984</td><td class="v">2,48</td><td class="v">43,09%</td><td class="v">1,12%</td><td class="v">6,54 anos</td></tr><tr><td class="rot">Indústrias extrativas</td><td class="v">726</td><td class="v">2,46</td><td class="v">28,93%</td><td class="v">4,41%</td><td class="v">11,08 anos</td></tr><tr><td class="rot">Comércio</td><td class="v">171.172</td><td class="v">2,45</td><td class="v">31,05%</td><td class="v">1,71%</td><td class="v">5,17 anos</td></tr><tr><td class="rot">Agropecuária</td><td class="v">1.462</td><td class="v">2,44</td><td class="v">28,66%</td><td class="v">0,14%</td><td class="v">3,42 anos</td></tr><tr><td class="rot">Indústrias de transformação</td><td class="v">60.798</td><td class="v">2,23</td><td class="v">28,64%</td><td class="v">0,71%</td><td class="v">4,67 anos</td></tr><tr><td class="rot">Profissionais e técnicas</td><td class="v">92.582</td><td class="v">2,15</td><td class="v">26,88%</td><td class="v">0,40%</td><td class="v">4,67 anos</td></tr><tr><td class="rot">Saúde humana e serviço social</td><td class="v">59.992</td><td class="v">2,14</td><td class="v">26,03%</td><td class="v">1,54%</td><td class="v">3,83 anos</td></tr><tr><td class="rot">Atividades imobiliárias</td><td class="v">13.019</td><td class="v">2,04</td><td class="v">27,65%</td><td class="v">2,02%</td><td class="v">7,75 anos</td></tr><tr><td class="rot">Educação</td><td class="v">53.224</td><td class="v">2,02</td><td class="v">26,35%</td><td class="v">0,95%</td><td class="v">4,00 anos</td></tr><tr><td class="rot">Atividades administrativas</td><td class="v">113.706</td><td class="v">1,67</td><td class="v">21,12%</td><td class="v">0,38%</td><td class="v">6,00 anos</td></tr></tbody></table></div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section><section id="e4">
+  <div class="cab"><span class="cod">E4</span><h2>Enquadramento tributário por seção</h2></div>
+  <p class="leitura">A opção pelo Simples Nacional ou pelo MEI serve como aproximação indireta de porte de receita, por força dos limites legais de cada regime. <b>Serviços domésticos</b> é quase integralmente MEI, com 94,46%; o comércio fica em 48,11%, com capital mediano dez vezes maior.</p>
+  <div class="rolagem"><table><thead><tr><th>Seção CNAE</th><th class="v">Estabelecimentos</th><th class="v">Simples Nacional</th><th class="v">MEI</th><th class="v">Capital mediano</th></tr></thead><tbody><tr><td class="rot">Serviços domésticos</td><td class="v">7.992</td><td class="v">94,83%</td><td class="v">94,46%</td><td class="v">R$ 1.000</td></tr><tr><td class="rot">Transporte e armazenagem</td><td class="v">97.117</td><td class="v">87,66%</td><td class="v">81,97%</td><td class="v">R$ 2.000</td></tr><tr><td class="rot">Indústrias de transformação</td><td class="v">61.790</td><td class="v">85,80%</td><td class="v">72,44%</td><td class="v">R$ 2.000</td></tr><tr><td class="rot">Agropecuária</td><td class="v">1.502</td><td class="v">79,09%</td><td class="v">69,77%</td><td class="v">R$ 3.000</td></tr><tr><td class="rot">Alojamento e alimentação</td><td class="v">84.078</td><td class="v">82,70%</td><td class="v">66,46%</td><td class="v">R$ 3.500</td></tr><tr><td class="rot">Educação</td><td class="v">54.712</td><td class="v">87,74%</td><td class="v">66,41%</td><td class="v">R$ 1.000</td></tr><tr><td class="rot">Outros serviços</td><td class="v">106.547</td><td class="v">72,42%</td><td class="v">63,22%</td><td class="v">R$ 1.000</td></tr><tr><td class="rot">Construção</td><td class="v">53.904</td><td class="v">73,90%</td><td class="v">56,23%</td><td class="v">R$ 5.000</td></tr><tr><td class="rot">Água, esgoto e resíduos</td><td class="v">1.534</td><td class="v">74,12%</td><td class="v">50,98%</td><td class="v">R$ 7.000</td></tr><tr><td class="rot">Comércio</td><td class="v">182.721</td><td class="v">76,85%</td><td class="v">48,11%</td><td class="v">R$ 10.000</td></tr><tr><td class="rot">Artes, cultura, esporte e recreação</td><td class="v">21.304</td><td class="v">82,21%</td><td class="v">43,51%</td><td class="v">R$ 3.000</td></tr><tr><td class="rot">Atividades administrativas</td><td class="v">115.869</td><td class="v">64,88%</td><td class="v">41,66%</td><td class="v">R$ 1.000</td></tr><tr><td class="rot">Informação e comunicação</td><td class="v">46.393</td><td class="v">82,88%</td><td class="v">38,92%</td><td class="v">R$ 3.000</td></tr><tr><td class="rot">Profissionais e técnicas</td><td class="v">94.014</td><td class="v">78,96%</td><td class="v">33,70%</td><td class="v">R$ 5.000</td></tr></tbody></table></div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section><section id="e5">
+  <div class="cab"><span class="cod">E5</span><h2>Índice Composto de Capacidade Instalada</h2></div>
+  <p class="leitura">O índice combina cinco variáveis cadastrais padronizadas — capital social, unidades, escopo, maturidade e quadro societário — em um escore único, sobre o qual as empresas são estratificadas. <b>Eletricidade e gás</b> tem o maior índice mediano; atividades imobiliárias têm a maior proporção de empresas em alta capacidade, 68,20%.</p>
+  <div class="barras"><div class="lin"><span class="nm">Muito baixa</span><span class="trilho"><span class="barra" style="width:99.8%"></span></span><span class="vl">251.566</span></div><div class="lin"><span class="nm">Baixa</span><span class="trilho"><span class="barra" style="width:100.0%"></span></span><span class="vl">251.948</span></div><div class="lin"><span class="nm">Média</span><span class="trilho"><span class="barra" style="width:99.9%"></span></span><span class="vl">251.681</span></div><div class="lin"><span class="nm">Alta</span><span class="trilho"><span class="barra" style="width:60.0%"></span></span><span class="vl">151.051</span></div><div class="lin"><span class="nm">Muito alta</span><span class="trilho"><span class="barra" style="width:39.9%"></span></span><span class="vl">100.648</span></div></div><div class="rolagem"><table><thead><tr><th>Seção CNAE</th><th class="v">Empresas</th><th class="v">ICCI mediano</th><th class="v">ICCI p90</th><th class="v">Alta capacidade</th></tr></thead><tbody><tr><td class="rot">Eletricidade e gás</td><td class="v">984</td><td class="v">0,766</td><td class="v">1,216</td><td class="v">66,77%</td></tr><tr><td class="rot">Atividades imobiliárias</td><td class="v">13.019</td><td class="v">0,379</td><td class="v">0,988</td><td class="v">68,20%</td></tr><tr><td class="rot">Comércio</td><td class="v">171.172</td><td class="v">0,067</td><td class="v">0,552</td><td class="v">37,01%</td></tr><tr><td class="rot">Água, esgoto e resíduos</td><td class="v">1.465</td><td class="v">0,062</td><td class="v">0,657</td><td class="v">37,27%</td></tr><tr><td class="rot">Informação e comunicação</td><td class="v">45.235</td><td class="v">0,059</td><td class="v">0,568</td><td class="v">36,26%</td></tr><tr><td class="rot">Artes, cultura, esporte e recreação</td><td class="v">20.809</td><td class="v">0,049</td><td class="v">0,546</td><td class="v">36,68%</td></tr><tr><td class="rot">Saúde humana e serviço social</td><td class="v">59.992</td><td class="v">0,029</td><td class="v">0,448</td><td class="v">30,08%</td></tr><tr><td class="rot">Construção</td><td class="v">52.108</td><td class="v">0,029</td><td class="v">0,669</td><td class="v">34,87%</td></tr><tr><td class="rot">Indústrias extrativas</td><td class="v">726</td><td class="v">0,011</td><td class="v">1,326</td><td class="v">45,87%</td></tr><tr><td class="rot">Profissionais e técnicas</td><td class="v">92.582</td><td class="v">0,001</td><td class="v">0,515</td><td class="v">30,50%</td></tr><tr><td class="rot">Alojamento e alimentação</td><td class="v">81.785</td><td class="v">-0,060</td><td class="v">0,334</td><td class="v">19,78%</td></tr><tr><td class="rot">Agropecuária</td><td class="v">1.462</td><td class="v">-0,062</td><td class="v">0,572</td><td class="v">23,73%</td></tr><tr><td class="rot">Indústrias de transformação</td><td class="v">60.798</td><td class="v">-0,074</td><td class="v">0,393</td><td class="v">20,46%</td></tr><tr><td class="rot">Educação</td><td class="v">53.224</td><td class="v">-0,110</td><td class="v">0,332</td><td class="v">17,63%</td></tr></tbody></table></div><div class="nota">Os pesos do índice refletem julgamento do pesquisador sobre a importância relativa de cada aproximação, e não um procedimento estatístico de ponderação. Pesos diferentes produziriam estratificação distinta.</div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section><section id="e6">
+  <div class="cab"><span class="cod">E6</span><h2>Perfis de empresa por agrupamento</h2></div>
+  <p class="leitura">A segmentação aplica o mesmo tratamento de cauda do índice e separa cinco perfis com massa e leitura econômica distintas. O maior deles, com <b>46,55%</b> das empresas, é de microempresas recentes de atividade única.</p>
+  <div class="barras"><div class="lin"><span class="nm">Microempresa recente, escopo único</span><span class="trilho"><span class="barra" style="width:100.0%"></span></span><span class="vl">468.727</span></div><div class="lin"><span class="nm">Microempresa com escopo ampliado</span><span class="trilho"><span class="barra" style="width:58.2%"></span></span><span class="vl">272.753</span></div><div class="lin"><span class="nm">Sociedade madura, capital maior</span><span class="trilho"><span class="barra" style="width:28.0%"></span></span><span class="vl">131.041</span></div><div class="lin"><span class="nm">Capital simbólico</span><span class="trilho"><span class="barra" style="width:16.8%"></span></span><span class="vl">78.731</span></div><div class="lin"><span class="nm">Registro antigo, capital nulo</span><span class="trilho"><span class="barra" style="width:11.9%"></span></span><span class="vl">55.642</span></div></div><div class="rolagem"><table><thead><tr><th>Perfil</th><th class="v">Empresas</th><th class="v">Participação</th><th class="v">Capital mediano</th><th class="v">CNAEs sec.</th><th class="v">Idade mediana</th><th class="v">Sócios</th></tr></thead><tbody><tr><td class="rot">Microempresa recente, escopo único</td><td class="v">468.727</td><td class="v">46,55%</td><td class="v">R$ 1.997</td><td class="v">0</td><td class="v">3,08 anos</td><td class="v">1</td></tr><tr><td class="rot">Microempresa com escopo ampliado</td><td class="v">272.753</td><td class="v">27,09%</td><td class="v">R$ 5.013</td><td class="v">4</td><td class="v">4,17 anos</td><td class="v">1</td></tr><tr><td class="rot">Sociedade madura, capital maior</td><td class="v">131.041</td><td class="v">13,01%</td><td class="v">R$ 19.929</td><td class="v">1</td><td class="v">10,33 anos</td><td class="v">2</td></tr><tr><td class="rot">Capital simbólico</td><td class="v">78.731</td><td class="v">7,82%</td><td class="v">R$ 1</td><td class="v">0</td><td class="v">5,83 anos</td><td class="v">1</td></tr><tr><td class="rot">Registro antigo, capital nulo</td><td class="v">55.642</td><td class="v">5,53%</td><td class="v">R$ 0</td><td class="v">0</td><td class="v">31,75 anos</td><td class="v">1</td></tr></tbody></table></div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section>
+<footer>
+<p>Município do Rio de Janeiro, código 6001 da tabela de municípios da
+Receita Federal. Universo de 2.708.242 estabelecimentos registrados, dos quais
+1.042.405 com situação cadastral ativa. Salvo indicação em contrário, os
+indicadores usam apenas os ativos.</p>
+<p>O cadastro de CNPJ é administrativo e mantido para fins tributários. Não contém
+demonstrações contábeis, faturamento, imobilizado ou número de empregados, e
+situação cadastral ativa não implica operação econômica efetiva.</p><p><b>Advertência metodológica.</b> O cadastro não mede ativos, imobilizado
+nem faturamento. Todas as variáveis desta pesquisa são aproximações cadastrais de capacidade
+instalada, não mensuração direta de patrimônio. Cada conclusão deve ser lida nesses termos.</p>
+<div class="navega"><a href="#e1">E1 Capital</a><a href="#e2">E2 Quadro societário</a><a href="#e2c">E2c Faixa etária</a><a href="#e3">E3 Escopo</a><a href="#e4">E4 Tributário</a><a href="#e5">E5 Índice</a><a href="#e6">E6 Perfis</a></div>
+</footer>
+</div></body></html>

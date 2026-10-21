@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A dimensão comercial do tecido empresarial carioca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>:root{--acento:#9A5B18;--acento2:#C98A3C}
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --papel:#E6E8E7; --tinta:#191F24; --fio:#C4C8C6; --fio-forte:#8E9693;
+  --suave:#5C6560; --bloco:#DCDFDD;
+}
+:root:not([data-theme="light"]){ }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --papel:#14181A; --tinta:#E4E7E5; --fio:#2C3337; --fio-forte:#505A5E;
+    --suave:#9BA4A0; --bloco:#1C2225;
+  }
+}
+:root[data-theme="dark"]{
+  --papel:#14181A; --tinta:#E4E7E5; --fio:#2C3337; --fio-forte:#505A5E;
+  --suave:#9BA4A0; --bloco:#1C2225;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papel); color:var(--tinta);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.55;
+}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px 90px}
+h1,h2,h3,.sans,th,.num,.cod,.cifra,.etq{
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+}
+.num,.cifra,td.v{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+
+/* masthead */
+header.topo{border-bottom:3px solid var(--tinta);padding:40px 0 18px;margin-bottom:0}
+.serie{font-family:Archivo,Arial,sans-serif;font-size:13px;letter-spacing:.14em;
+  color:var(--acento);font-weight:600;margin:0 0 10px}
+h1{font-size:clamp(30px,5.2vw,50px);line-height:1.04;font-weight:700;
+  letter-spacing:-.022em;margin:0 0 12px;max-width:17ch}
+.sub{font-size:19px;color:var(--suave);margin:0 0 26px;max-width:62ch;line-height:1.5}
+.painel{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--fio)}
+.painel div{flex:1 1 170px;padding:14px 20px 14px 0;border-right:1px solid var(--fio)}
+.painel div:last-child{border-right:0}
+.cifra{display:block;font-size:27px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.etq{display:block;font-size:12.5px;color:var(--suave);margin-top:3px;line-height:1.35}
+
+/* secoes */
+section{padding:46px 0 10px;border-bottom:1px solid var(--fio)}
+section:last-of-type{border-bottom:0}
+.cab{display:flex;gap:16px;align-items:baseline;margin-bottom:6px}
+.cod{flex:0 0 auto;font-size:13px;font-weight:700;color:var(--papel);
+  background:var(--acento);padding:3px 8px;border-radius:2px;letter-spacing:.04em}
+h2{font-size:25px;font-weight:600;letter-spacing:-.016em;margin:0;line-height:1.2}
+.leitura{color:var(--suave);max-width:70ch;margin:10px 0 24px;font-size:16.5px}
+.leitura b{color:var(--tinta);font-weight:600}
+
+/* tabelas */
+.rolagem{overflow-x:auto;margin:0 -20px;padding:0 20px}
+table{border-collapse:collapse;width:100%;font-size:15px;min-width:460px}
+th{text-align:left;font-size:12px;font-weight:600;letter-spacing:.05em;
+  color:var(--suave);padding:0 12px 7px 0;border-bottom:1.5px solid var(--fio-forte);
+  vertical-align:bottom}
+th.v,td.v{text-align:right;padding-right:12px}
+th.v{padding-left:16px}
+th.v:last-child,td.v:last-child{padding-right:0}
+td{padding:8px 12px 8px 0;border-bottom:1px solid var(--fio);vertical-align:top}
+td.v{padding-left:14px;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tbody tr.total td{border-top:1.5px solid var(--fio-forte);font-weight:700}
+.rot{font-weight:600}
+
+/* barras css */
+.barras{margin:4px 0 0}
+.lin{display:grid;grid-template-columns:minmax(120px,30%) 1fr auto;gap:12px;
+  align-items:center;padding:6px 0;border-bottom:1px solid var(--fio)}
+.lin:last-child{border-bottom:0}
+.lin .nm{font-size:14.5px;line-height:1.3}
+.trilho{display:flex;height:13px;background:var(--bloco)}
+.barra{display:block;height:100%;background:var(--acento);min-width:2px}
+.barra.alt{background:var(--acento2)}
+.lin .vl{font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap;
+  font-family:Archivo,Arial,sans-serif;font-weight:600}
+.empilhada{display:flex;height:17px;background:var(--bloco)}
+.empilhada span{height:100%}
+.legenda{display:flex;flex-wrap:wrap;gap:16px;margin:14px 0 18px;font-size:13.5px;
+  font-family:Archivo,Arial,sans-serif}
+.legenda i{display:inline-block;width:11px;height:11px;margin-right:6px;
+  vertical-align:-1px;font-style:normal}
+
+/* nota de ressalva */
+.nota{border-left:3px solid var(--acento);background:var(--bloco);
+  padding:13px 16px;margin:22px 0 4px;font-size:15.5px;max-width:72ch}
+.nota b{font-weight:600}
+.fonte{font-size:12.5px;color:var(--suave);margin-top:14px;
+  font-family:Archivo,Arial,sans-serif}
+
+footer{padding:38px 0 0;border-top:3px solid var(--tinta);margin-top:46px;
+  font-size:14px;color:var(--suave)}
+footer p{margin:0 0 10px;max-width:74ch}
+.navega{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:14px;
+  font-family:Archivo,Arial,sans-serif}
+.navega a{color:var(--acento);text-decoration:none;border-bottom:1px solid currentColor;
+  padding-bottom:1px}
+.navega a:hover,.navega a:focus{color:var(--tinta)}
+a:focus-visible{outline:2px solid var(--acento);outline-offset:3px}
+@media (max-width:620px){
+  body{font-size:16px}
+  .lin{grid-template-columns:1fr auto;gap:4px 10px}
+  .lin .trilho{grid-column:1/-1;order:3}
+  .painel div{flex:1 1 130px;padding-right:14px}
+}
+@media print{
+  body{background:#fff;color:#000}
+  .rolagem{overflow:visible}
+  section{break-inside:avoid}
+}
+</style>
+</head><body><div class="wrap">
+<header class="topo">
+  <p class="serie">Pesquisa 1 de 3</p>
+  <h1>A dimensão comercial do tecido empresarial carioca</h1>
+  <p class="sub">Como se distribuem os públicos de compra e venda entre as empresas do município do Rio de Janeiro, e que desequilíbrios entre oferta e demanda potencial esse arranjo revela.</p>
+  <div class="painel"><div><span class="cifra">1.042.405</span><span class="etq">estabelecimentos ativos</span></div><div><span class="cifra">82,03%</span><span class="etq">em varejo e serviços de apoio</span></div><div><span class="cifra">45,38%</span><span class="etq">voltados ao consumidor final</span></div><div><span class="cifra">2.237,7</span><span class="etq">maior HHI setorial</span></div></div>
+</header>
+<section id="i1">
+  <div class="cab"><span class="cod">I1</span><h2>Composição por elo da cadeia e público-alvo</h2></div>
+  <p class="leitura">Varejo e serviços de apoio concentram <b>82,03%</b> dos estabelecimentos ativos. Três elos — primário, transformação e distribuição — não têm nenhum estabelecimento voltado ao consumidor final ou ao setor público, o que condiciona a leitura do indicador seguinte.</p>
+  <div class="legenda"><span><i style="background:var(--acento)"></i>B2B</span><span><i style="background:#C98A3C"></i>B2C</span><span><i style="background:#5B6E52"></i>B2G</span><span><i style="background:#8E8073"></i>MISTO</span></div><div class="barras"><div class="lin"><span class="nm">Varejo</span><span class="empilhada" style="width:46.5%"><span style="width:95.65%;background:#C98A3C"></span><span style="width:4.35%;background:#8E8073"></span></span><span class="vl">485.237</span></div><div class="lin"><span class="nm">Serviços de apoio</span><span class="empilhada" style="width:35.5%"><span style="width:60.35%;background:var(--acento)"></span><span style="width:2.42%;background:#C98A3C"></span><span style="width:37.23%;background:#8E8073"></span></span><span class="vl">369.864</span></div><div class="lin"><span class="nm">Distribuição</span><span class="empilhada" style="width:10.9%"><span style="width:22.53%;background:var(--acento)"></span><span style="width:77.47%;background:#8E8073"></span></span><span class="vl">114.041</span></div><div class="lin"><span class="nm">Transformação</span><span class="empilhada" style="width:6.1%"><span style="width:62.72%;background:var(--acento)"></span><span style="width:37.28%;background:#8E8073"></span></span><span class="vl">63.194</span></div><div class="lin"><span class="nm">Infraestrutura</span><span class="empilhada" style="width:0.8%"><span style="width:48.36%;background:#5B6E52"></span><span style="width:51.64%;background:#8E8073"></span></span><span class="vl">7.876</span></div><div class="lin"><span class="nm">Primário</span><span class="empilhada" style="width:0.2%"><span style="width:100.00%;background:var(--acento)"></span></span><span class="vl">2.193</span></div></div><div class="rolagem"><table><thead><tr><th>Elo da cadeia</th><th class="v">B2B</th><th class="v">B2C</th><th class="v">B2G</th><th class="v">MISTO</th><th class="v">Total</th></tr></thead><tbody><tr><td class="rot">Varejo</td><td class="v">0</td><td class="v">464.143</td><td class="v">0</td><td class="v">21.094</td><td class="v">485.237</td></tr><tr><td class="rot">Serviços de apoio</td><td class="v">223.225</td><td class="v">8.947</td><td class="v">0</td><td class="v">137.692</td><td class="v">369.864</td></tr><tr><td class="rot">Distribuição</td><td class="v">25.698</td><td class="v">0</td><td class="v">0</td><td class="v">88.343</td><td class="v">114.041</td></tr><tr><td class="rot">Transformação</td><td class="v">39.634</td><td class="v">0</td><td class="v">0</td><td class="v">23.560</td><td class="v">63.194</td></tr><tr><td class="rot">Infraestrutura</td><td class="v">0</td><td class="v">0</td><td class="v">3.809</td><td class="v">4.067</td><td class="v">7.876</td></tr><tr><td class="rot">Primário</td><td class="v">2.193</td><td class="v">0</td><td class="v">0</td><td class="v">0</td><td class="v">2.193</td></tr><tr class="total"><td>Total</td><td class="v">290.750</td><td class="v">473.090</td><td class="v">3.809</td><td class="v">274.756</td><td class="v">1.042.405</td></tr></tbody></table></div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section><section id="i2">
+  <div class="cab"><span class="cod">I2</span><h2>Oferta e demanda potencial por elo</h2></div>
+  <p class="leitura">A razão entre ofertantes B2B e demandantes compara a oferta local de fornecimento empresarial com a demanda potencial dentro do mesmo elo.</p>
+  <div class="rolagem"><table><thead><tr><th>Elo da cadeia</th><th class="v">Ofertantes B2B</th><th class="v">Demandantes B2C/B2G</th><th class="v">Razão</th><th>Situação do indicador</th></tr></thead><tbody><tr><td class="rot">Varejo</td><td class="v">21.094</td><td class="v">464.143</td><td class="v">0,045</td><td>definido</td></tr><tr><td class="rot">Serviços de apoio</td><td class="v">360.917</td><td class="v">8.947</td><td class="v">40,339</td><td>cautela: denominador &lt; 5% do elo</td></tr><tr><td class="rot">Distribuição</td><td class="v">114.041</td><td class="v">0</td><td class="v">—</td><td>indefinido: elo sem divisões CNAE B2C/B2G</td></tr><tr><td class="rot">Transformação</td><td class="v">63.194</td><td class="v">0</td><td class="v">—</td><td>indefinido: elo sem divisões CNAE B2C/B2G</td></tr><tr><td class="rot">Infraestrutura</td><td class="v">4.067</td><td class="v">3.809</td><td class="v">1,068</td><td>definido</td></tr><tr><td class="rot">Primário</td><td class="v">2.193</td><td class="v">0</td><td class="v">—</td><td>indefinido: elo sem divisões CNAE B2C/B2G</td></tr></tbody></table></div><div class="nota">Limitação do indicador. Como a taxonomia atribui orientação no nível da divisão CNAE, e as divisões de primário, transformação e distribuição são integralmente B2B ou mistas, o denominador zera nesses três elos e a razão fica indefinida — por desenho, não por erro de cálculo. Em serviços de apoio o denominador representa menos de 5% do elo, inflando o valor para 40,339. <b>A razão intra-elo só é interpretável em varejo e infraestrutura.</b></div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section><section id="i3">
+  <div class="cab"><span class="cod">I3</span><h2>Concentração setorial (Herfindahl-Hirschman)</h2></div>
+  <p class="leitura">O índice mede a concentração das atividades dentro de cada seção CNAE. Valores abaixo de 1.500 indicam setor desconcentrado; entre 1.500 e 2.500, moderadamente concentrado. <b>Nenhuma seção do município atinge a faixa de alta concentração.</b> Barras em tom distinto marcam as seções moderadamente concentradas.</p>
+  <div class="barras"><div class="lin"><span class="nm">Comércio</span><span class="trilho"><span class="barra" style="width:15.9%"></span></span><span class="vl">366,6</span></div><div class="lin"><span class="nm">Atividades administrativas</span><span class="trilho"><span class="barra" style="width:62.8%"></span></span><span class="vl">1.451,6</span></div><div class="lin"><span class="nm">Outros serviços</span><span class="trilho"><span class="barra alt" style="width:96.8%"></span></span><span class="vl">2.237,7</span></div><div class="lin"><span class="nm">Transporte e armazenagem</span><span class="trilho"><span class="barra" style="width:60.5%"></span></span><span class="vl">1.397,7</span></div><div class="lin"><span class="nm">Profissionais e técnicas</span><span class="trilho"><span class="barra alt" style="width:66.7%"></span></span><span class="vl">1.542,6</span></div><div class="lin"><span class="nm">Alojamento e alimentação</span><span class="trilho"><span class="barra alt" style="width:80.3%"></span></span><span class="vl">1.854,9</span></div><div class="lin"><span class="nm">Saúde humana e serviço social</span><span class="trilho"><span class="barra" style="width:45.1%"></span></span><span class="vl">1.042,6</span></div><div class="lin"><span class="nm">Indústrias de transformação</span><span class="trilho"><span class="barra" style="width:20.8%"></span></span><span class="vl">479,7</span></div><div class="lin"><span class="nm">Educação</span><span class="trilho"><span class="barra alt" style="width:100.0%"></span></span><span class="vl">2.311,3</span></div><div class="lin"><span class="nm">Construção</span><span class="trilho"><span class="barra" style="width:60.2%"></span></span><span class="vl">1.391,2</span></div><div class="lin"><span class="nm">Informação e comunicação</span><span class="trilho"><span class="barra" style="width:35.5%"></span></span><span class="vl">820,3</span></div><div class="lin"><span class="nm">Atividades financeiras</span><span class="trilho"><span class="barra alt" style="width:89.0%"></span></span><span class="vl">2.056,0</span></div><div class="lin"><span class="nm">Artes, cultura, esporte e recreação</span><span class="trilho"><span class="barra" style="width:62.6%"></span></span><span class="vl">1.447,5</span></div><div class="lin"><span class="nm">Atividades imobiliárias</span><span class="trilho"><span class="barra alt" style="width:98.0%"></span></span><span class="vl">2.265,4</span></div></div><div class="rolagem"><table><thead><tr><th>Seção CNAE</th><th class="v">Estabelecimentos</th><th class="v">CNAEs</th><th class="v">HHI</th><th class="v">Atividade dominante</th><th>Classificação</th></tr></thead><tbody><tr><td class="rot">Comércio</td><td class="v">182.721</td><td class="v">222</td><td class="v">366,6</td><td class="v">14,15%</td><td>Desconcentrado</td></tr><tr><td class="rot">Atividades administrativas</td><td class="v">115.869</td><td class="v">54</td><td class="v">1.451,6</td><td class="v">23,48%</td><td>Desconcentrado</td></tr><tr><td class="rot">Outros serviços</td><td class="v">106.547</td><td class="v">37</td><td class="v">2.237,7</td><td class="v">42,35%</td><td>Moderadamente concentrado</td></tr><tr><td class="rot">Transporte e armazenagem</td><td class="v">97.117</td><td class="v">65</td><td class="v">1.397,7</td><td class="v">20,13%</td><td>Desconcentrado</td></tr><tr><td class="rot">Profissionais e técnicas</td><td class="v">94.014</td><td class="v">40</td><td class="v">1.542,6</td><td class="v">33,43%</td><td>Moderadamente concentrado</td></tr><tr><td class="rot">Alojamento e alimentação</td><td class="v">84.078</td><td class="v">16</td><td class="v">1.854,9</td><td class="v">27,59%</td><td>Moderadamente concentrado</td></tr><tr><td class="rot">Saúde humana e serviço social</td><td class="v">62.734</td><td class="v">52</td><td class="v">1.042,6</td><td class="v">20,42%</td><td>Desconcentrado</td></tr><tr><td class="rot">Indústrias de transformação</td><td class="v">61.790</td><td class="v">379</td><td class="v">479,7</td><td class="v">16,29%</td><td>Desconcentrado</td></tr><tr><td class="rot">Educação</td><td class="v">54.712</td><td class="v">23</td><td class="v">2.311,3</td><td class="v">37,54%</td><td>Moderadamente concentrado</td></tr><tr><td class="rot">Construção</td><td class="v">53.904</td><td class="v">47</td><td class="v">1.391,2</td><td class="v">26,51%</td><td>Desconcentrado</td></tr><tr><td class="rot">Informação e comunicação</td><td class="v">46.393</td><td class="v">47</td><td class="v">820,3</td><td class="v">16,94%</td><td>Desconcentrado</td></tr><tr><td class="rot">Atividades financeiras</td><td class="v">33.755</td><td class="v">57</td><td class="v">2.056,0</td><td class="v">38,80%</td><td>Moderadamente concentrado</td></tr><tr><td class="rot">Artes, cultura, esporte e recreação</td><td class="v">21.304</td><td class="v">28</td><td class="v">1.447,5</td><td class="v">25,77%</td><td>Desconcentrado</td></tr><tr><td class="rot">Atividades imobiliárias</td><td class="v">13.490</td><td class="v">6</td><td class="v">2.265,4</td><td class="v">26,89%</td><td>Moderadamente concentrado</td></tr></tbody></table></div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section><section id="i4">
+  <div class="cab"><span class="cod">I4</span><h2>Perfil por orientação de público</h2></div>
+  <p class="leitura">O fornecedor do setor público é a categoria destoante: capital mediano mais alto, idade mediana de <b>10,67 anos</b> contra 4 a 5 anos nas demais, e a menor participação de microempresas e MEI. A barreira de entrada à demanda pública aparece no cadastro.</p>
+  <div class="rolagem"><table><thead><tr><th>Orientação</th><th class="v">Estabelecimentos</th><th class="v">Microempresa</th><th class="v">MEI</th><th class="v">Capital mediano</th><th class="v">Idade mediana</th><th class="v">CNAEs sec.</th></tr></thead><tbody><tr><td class="rot">B2C</td><td class="v">473.090</td><td class="v">85,92%</td><td class="v">57,03%</td><td class="v">R$ 4.000</td><td class="v">4,42 anos</td><td class="v">1,91</td></tr><tr><td class="rot">B2B</td><td class="v">290.750</td><td class="v">70,29%</td><td class="v">38,84%</td><td class="v">R$ 3.000</td><td class="v">5,33 anos</td><td class="v">2,18</td></tr><tr><td class="rot">MISTO</td><td class="v">274.756</td><td class="v">72,04%</td><td class="v">53,38%</td><td class="v">R$ 2.000</td><td class="v">4,42 anos</td><td class="v">2,02</td></tr><tr><td class="rot">B2G</td><td class="v">3.809</td><td class="v">43,84%</td><td class="v">19,93%</td><td class="v">R$ 5.000</td><td class="v">10,67 anos</td><td class="v">3,20</td></tr></tbody></table></div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section><section id="i5">
+  <div class="cab"><span class="cod">I5</span><h2>Atividades econômicas mais frequentes</h2></div>
+  <p class="leitura">A atividade isolada mais frequente do município é <b>cabeleireiros, manicure e pedicure</b>, com 4,33% dos ativos. As vinte primeiras somam pouco mais de um terço do tecido, o que é coerente com o quadro de baixa concentração medido no indicador anterior.</p>
+  <div class="barras"><div class="lin"><span class="nm">Cabeleireiros, manicure e pedicure</span><span class="trilho"><span class="barra" style="width:100.0%"></span></span><span class="vl">45.123</span></div><div class="lin"><span class="nm">Promoção de vendas</span><span class="trilho"><span class="barra" style="width:69.7%"></span></span><span class="vl">31.431</span></div><div class="lin"><span class="nm">Condomínios prediais</span><span class="trilho"><span class="barra" style="width:60.3%"></span></span><span class="vl">27.206</span></div><div class="lin"><span class="nm">Comércio varejista de artigos do vestuário e acessór</span><span class="trilho"><span class="barra" style="width:57.3%"></span></span><span class="vl">25.847</span></div><div class="lin"><span class="nm">Preparação de documentos e serviços especializados d</span><span class="trilho"><span class="barra" style="width:55.9%"></span></span><span class="vl">25.203</span></div><div class="lin"><span class="nm">Fornecimento de alimentos preparados preponderanteme</span><span class="trilho"><span class="barra" style="width:51.4%"></span></span><span class="vl">23.197</span></div><div class="lin"><span class="nm">Outras atividades de ensino não especificadas anteri</span><span class="trilho"><span class="barra" style="width:45.5%"></span></span><span class="vl">20.537</span></div><div class="lin"><span class="nm">Serviços de entrega rápida</span><span class="trilho"><span class="barra" style="width:43.3%"></span></span><span class="vl">19.552</span></div><div class="lin"><span class="nm">Lanchonetes, casas de chá, de sucos e similares</span><span class="trilho"><span class="barra" style="width:42.7%"></span></span><span class="vl">19.274</span></div><div class="lin"><span class="nm">Transporte rodoviário de carga, exceto produtos peri</span><span class="trilho"><span class="barra" style="width:42.5%"></span></span><span class="vl">19.194</span></div><div class="lin"><span class="nm">Serviços de organização de feiras, congressos, expos</span><span class="trilho"><span class="barra" style="width:42.1%"></span></span><span class="vl">19.011</span></div><div class="lin"><span class="nm">Serviço de transporte de passageiros - locação de au</span><span class="trilho"><span class="barra" style="width:39.7%"></span></span><span class="vl">17.892</span></div></div><div class="rolagem"><table><thead><tr><th>Atividade</th><th>Elo</th><th>Orientação</th><th class="v">Estabelecimentos</th><th class="v">Participação</th><th class="v">Acumulado</th></tr></thead><tbody><tr><td class="rot">Cabeleireiros, manicure e pedicure</td><td>Varejo</td><td>B2C</td><td class="v">45.123</td><td class="v">4,33%</td><td class="v">4,33%</td></tr><tr><td class="rot">Promoção de vendas</td><td>Serviços de apoio</td><td>B2B</td><td class="v">31.431</td><td class="v">3,02%</td><td class="v">7,34%</td></tr><tr><td class="rot">Condomínios prediais</td><td>Serviços de apoio</td><td>B2B</td><td class="v">27.206</td><td class="v">2,61%</td><td class="v">9,95%</td></tr><tr><td class="rot">Comércio varejista de artigos do vestuário e acessórios</td><td>Varejo</td><td>B2C</td><td class="v">25.847</td><td class="v">2,48%</td><td class="v">12,43%</td></tr><tr><td class="rot">Preparação de documentos e serviços especializados de apoio </td><td>Serviços de apoio</td><td>B2B</td><td class="v">25.203</td><td class="v">2,42%</td><td class="v">14,85%</td></tr><tr><td class="rot">Fornecimento de alimentos preparados preponderantemente para</td><td>Varejo</td><td>B2C</td><td class="v">23.197</td><td class="v">2,23%</td><td class="v">17,08%</td></tr><tr><td class="rot">Outras atividades de ensino não especificadas anteriormente</td><td>Varejo</td><td>B2C</td><td class="v">20.537</td><td class="v">1,97%</td><td class="v">19,05%</td></tr><tr><td class="rot">Serviços de entrega rápida</td><td>Distribuição</td><td>MISTO</td><td class="v">19.552</td><td class="v">1,88%</td><td class="v">20,92%</td></tr><tr><td class="rot">Lanchonetes, casas de chá, de sucos e similares</td><td>Varejo</td><td>B2C</td><td class="v">19.274</td><td class="v">1,85%</td><td class="v">22,77%</td></tr><tr><td class="rot">Transporte rodoviário de carga, exceto produtos perigosos e </td><td>Distribuição</td><td>MISTO</td><td class="v">19.194</td><td class="v">1,84%</td><td class="v">24,61%</td></tr><tr><td class="rot">Serviços de organização de feiras, congressos, exposições e </td><td>Serviços de apoio</td><td>B2B</td><td class="v">19.011</td><td class="v">1,82%</td><td class="v">26,44%</td></tr><tr><td class="rot">Serviço de transporte de passageiros - locação de automóveis</td><td>Distribuição</td><td>MISTO</td><td class="v">17.892</td><td class="v">1,72%</td><td class="v">28,15%</td></tr><tr><td class="rot">Atividades de estética e outros serviços de cuidados com a b</td><td>Varejo</td><td>B2C</td><td class="v">17.716</td><td class="v">1,70%</td><td class="v">29,85%</td></tr><tr><td class="rot">Restaurantes e similares</td><td>Varejo</td><td>B2C</td><td class="v">16.247</td><td class="v">1,56%</td><td class="v">31,41%</td></tr><tr><td class="rot">Treinamento em desenvolvimento profissional e gerencial</td><td>Varejo</td><td>B2C</td><td class="v">14.915</td><td class="v">1,43%</td><td class="v">32,84%</td></tr><tr><td class="rot">Obras de alvenaria</td><td>Serviços de apoio</td><td>MISTO</td><td class="v">14.290</td><td class="v">1,37%</td><td class="v">34,21%</td></tr><tr><td class="rot">Fundos de investimento, exceto previdenciários e imobiliário</td><td>Serviços de apoio</td><td>MISTO</td><td class="v">13.096</td><td class="v">1,26%</td><td class="v">35,47%</td></tr><tr><td class="rot">Serviços de malote não realizados pelo Correio Nacional</td><td>Distribuição</td><td>MISTO</td><td class="v">12.936</td><td class="v">1,24%</td><td class="v">36,71%</td></tr><tr><td class="rot">Atividades de fornecimento de infra-estrutura de apoio e ass</td><td>Varejo</td><td>B2C</td><td class="v">12.808</td><td class="v">1,23%</td><td class="v">37,94%</td></tr><tr><td class="rot">Serviços combinados de escritório e apoio administrativo</td><td>Serviços de apoio</td><td>B2B</td><td class="v">11.595</td><td class="v">1,11%</td><td class="v">39,05%</td></tr></tbody></table></div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section><section id="i6">
+  <div class="cab"><span class="cod">I6</span><h2>Descontinuidade cadastral por elo</h2></div>
+  <p class="leitura">Proporção de registros baixados ou inaptos sobre o total de registros de cada combinação. A distribuição B2B é o elo que mais encerra, com <b>71,67%</b>, e os serviços de apoio B2B o que menos encerra, com 51,09%.</p>
+  <div class="barras"><div class="lin"><span class="nm">Distribuição · B2B</span><span class="trilho"><span class="barra" style="width:100.0%"></span></span><span class="vl">71,67%</span></div><div class="lin"><span class="nm">Transformação · B2B</span><span class="trilho"><span class="barra" style="width:92.4%"></span></span><span class="vl">66,25%</span></div><div class="lin"><span class="nm">Varejo · MISTO</span><span class="trilho"><span class="barra" style="width:91.4%"></span></span><span class="vl">65,51%</span></div><div class="lin"><span class="nm">Varejo · B2C</span><span class="trilho"><span class="barra" style="width:90.9%"></span></span><span class="vl">65,17%</span></div><div class="lin"><span class="nm">Primário · B2B</span><span class="trilho"><span class="barra" style="width:90.7%"></span></span><span class="vl">64,98%</span></div><div class="lin"><span class="nm">Transformação · MISTO</span><span class="trilho"><span class="barra" style="width:84.1%"></span></span><span class="vl">60,25%</span></div><div class="lin"><span class="nm">Serviços de apoio · B2C</span><span class="trilho"><span class="barra" style="width:81.8%"></span></span><span class="vl">58,63%</span></div><div class="lin"><span class="nm">Serviços de apoio · MISTO</span><span class="trilho"><span class="barra" style="width:79.4%"></span></span><span class="vl">56,88%</span></div><div class="lin"><span class="nm">Infraestrutura · MISTO</span><span class="trilho"><span class="barra" style="width:78.5%"></span></span><span class="vl">56,25%</span></div><div class="lin"><span class="nm">Infraestrutura · B2G</span><span class="trilho"><span class="barra" style="width:78.0%"></span></span><span class="vl">55,89%</span></div><div class="lin"><span class="nm">Distribuição · MISTO</span><span class="trilho"><span class="barra" style="width:72.8%"></span></span><span class="vl">52,21%</span></div><div class="lin"><span class="nm">Serviços de apoio · B2B</span><span class="trilho"><span class="barra" style="width:71.3%"></span></span><span class="vl">51,09%</span></div></div><div class="rolagem"><table><thead><tr><th>Elo · orientação</th><th class="v">Registros</th><th class="v">Ativos</th><th class="v">Baixados ou inaptos</th><th class="v">Taxa</th></tr></thead><tbody><tr><td class="rot">Distribuição · B2B</td><td class="v">92.696</td><td class="v">25.698</td><td class="v">66.435</td><td class="v">71,67%</td></tr><tr><td class="rot">Transformação · B2B</td><td class="v">119.607</td><td class="v">39.634</td><td class="v">79.238</td><td class="v">66,25%</td></tr><tr><td class="rot">Varejo · MISTO</td><td class="v">62.718</td><td class="v">21.094</td><td class="v">41.087</td><td class="v">65,51%</td></tr><tr><td class="rot">Varejo · B2C</td><td class="v">1.355.252</td><td class="v">464.143</td><td class="v">883.158</td><td class="v">65,17%</td></tr><tr><td class="rot">Primário · B2B</td><td class="v">6.367</td><td class="v">2.193</td><td class="v">4.137</td><td class="v">64,98%</td></tr><tr><td class="rot">Transformação · MISTO</td><td class="v">60.343</td><td class="v">23.560</td><td class="v">36.359</td><td class="v">60,25%</td></tr><tr><td class="rot">Serviços de apoio · B2C</td><td class="v">21.872</td><td class="v">8.947</td><td class="v">12.823</td><td class="v">58,63%</td></tr><tr><td class="rot">Serviços de apoio · MISTO</td><td class="v">323.153</td><td class="v">137.692</td><td class="v">183.800</td><td class="v">56,88%</td></tr><tr><td class="rot">Infraestrutura · MISTO</td><td class="v">9.370</td><td class="v">4.067</td><td class="v">5.271</td><td class="v">56,25%</td></tr><tr><td class="rot">Infraestrutura · B2G</td><td class="v">8.849</td><td class="v">3.809</td><td class="v">4.946</td><td class="v">55,89%</td></tr><tr><td class="rot">Distribuição · MISTO</td><td class="v">185.447</td><td class="v">88.343</td><td class="v">96.813</td><td class="v">52,21%</td></tr><tr><td class="rot">Serviços de apoio · B2B</td><td class="v">462.568</td><td class="v">223.225</td><td class="v">236.323</td><td class="v">51,09%</td></tr></tbody></table></div><div class="nota">Este indicador usa o <b>universo completo</b> de 2.708.242 registros como denominador, e não apenas os ativos. Encerramento cadastral não equivale a encerramento de atividade econômica.</div>
+  <p class="fonte">Fonte: elaborado pelo autor a partir dos Dados Abertos do CNPJ, Receita Federal do Brasil, competência 2026-08.</p>
+</section>
+<footer>
+<p>Município do Rio de Janeiro, código 6001 da tabela de municípios da
+Receita Federal. Universo de 2.708.242 estabelecimentos registrados, dos quais
+1.042.405 com situação cadastral ativa. Salvo indicação em contrário, os
+indicadores usam apenas os ativos.</p>
+<p>O cadastro de CNPJ é administrativo e mantido para fins tributários. Não contém
+demonstrações contábeis, faturamento, imobilizado ou número de empregados, e
+situação cadastral ativa não implica operação econômica efetiva.</p>
+<div class="navega"><a href="#i1">I1 Composição</a><a href="#i2">I2 Oferta e demanda</a><a href="#i3">I3 Concentração</a><a href="#i4">I4 Perfil</a><a href="#i5">I5 Atividades</a><a href="#i6">I6 Descontinuidade</a></div>
+</footer>
+</div></body></html>
