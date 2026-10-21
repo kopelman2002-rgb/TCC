@@ -11,7 +11,8 @@ O que faz, em ordem:
   4. Carrega os dados, filtra o município do Rio de Janeiro e junta as
      informações de empresas, sócios e Simples/MEI.
   5. Grava a base pronta em arquivos Parquet.
-  6. Gera um relatório de qualidade dos dados.
+  6. Gera um relatório de qualidade dos dados e outro das linhas que a
+     leitura descartou por defeito de formato.
 
 Como rodar:
     python s02_extracao_base.py --etapa tudo
@@ -19,14 +20,15 @@ Como rodar:
     python s02_extracao_base.py --etapa descompactar
     python s02_extracao_base.py --etapa construir
 
-Requisitos:
-    pip install duckdb>=1.1 requests tqdm pandas pyarrow
+Requisitos (a leitura em latin-1 exige o DuckDB 1.2 ou mais recente):
+    pip install "duckdb>=1.2" requests tqdm pandas pyarrow
 """
 
 # Bibliotecas usadas pelo script.
 from __future__ import annotations
 
 import argparse
+import csv
 import sys
 import zipfile
 from datetime import date
@@ -114,15 +116,26 @@ def baixar(competencia: str) -> None:
         if tamanho_remoto and ja_baixado == tamanho_remoto:
             print(f"[skip] {nome} ja completo.")
             continue
+        # Arquivo local maior que o do servidor está corrompido: baixa de novo.
+        if tamanho_remoto and ja_baixado > tamanho_remoto:
+            print(f"[aviso] {nome}: maior que o do servidor. Baixando de novo.")
+            ja_baixado = 0
 
         # Se já tem uma parte, pede ao servidor só o que falta.
         headers = {"Range": f"bytes={ja_baixado}-"} if ja_baixado else {}
-        modo = "ab" if ja_baixado else "wb"
 
         # Baixa o arquivo em blocos, mostrando o progresso.
         with requests.get(url, stream=True, headers=headers, timeout=120,
                           auth=cfg.AUTH) as r:
             r.raise_for_status()
+            # O servidor só continua de onde parou quando responde com o
+            # código 206. Se mandar o arquivo inteiro (código 200), grava do
+            # início, em vez de acrescentá-lo ao pedaço já baixado.
+            if ja_baixado and r.status_code != 206:
+                print(f"[aviso] {nome}: o servidor nao continuou o download. "
+                      "Baixando do inicio.")
+                ja_baixado = 0
+            modo = "ab" if ja_baixado else "wb"
             with open(destino, modo) as f, tqdm(
                 total=tamanho_remoto, initial=ja_baixado, unit="B",
                 unit_scale=True, desc=nome,
@@ -163,6 +176,8 @@ def descompactar() -> None:
 # Monta a instrução de leitura dos arquivos da Receita: sem cabeçalho,
 # separados por ";", com as colunas na ordem do s01_config.py.
 # Tudo é lido como texto; a conversão de números e datas vem depois.
+# Linhas com defeito de formato (colunas a mais ou a menos) são descartadas
+# e ficam registradas, para o relatório de linhas descartadas (seção 6).
 def _sql_leitura(padrao_glob: str, colunas: list[str]) -> str:
     caminho = (cfg.DIR_CSVS / padrao_glob).as_posix()
     nomes = ", ".join(f"'{c}'" for c in colunas)
@@ -170,7 +185,7 @@ def _sql_leitura(padrao_glob: str, colunas: list[str]) -> str:
         f"read_csv('{caminho}', delim='{cfg.CSV_SEP}', header=false, "
         f"quote='{cfg.CSV_QUOTE}', escape='{cfg.CSV_QUOTE}', "
         f"encoding='{cfg.CSV_ENCODING}', all_varchar=true, "
-        f"ignore_errors=true, names=[{nomes}])"
+        f"store_rejects=true, names=[{nomes}])"
     )
 
 
@@ -316,9 +331,10 @@ def construir() -> None:
 
     # 4.7 Base analítica: junta tudo em um registro por estabelecimento,
     # com dados da empresa, descrições, Simples/MEI, idade em meses e
-    # quantidade de atividades secundárias.
+    # quantidade de atividades secundárias. A idade é contada até a data
+    # de referência do s01_config.py, e não até o dia em que o script roda.
     print("[info] Montando tabela analitica...")
-    con.execute("""
+    con.execute(f"""
         CREATE OR REPLACE TABLE base_analitica AS
         SELECT
             e.*,
@@ -330,7 +346,8 @@ def construir() -> None:
             cn.descricao                                    AS cnae_desc,
             coalesce(sm.opcao_simples,'N')                  AS opcao_simples,
             coalesce(sm.opcao_mei,'N')                      AS opcao_mei,
-            date_diff('month', e.data_inicio, current_date) AS idade_meses,
+            date_diff('month', e.data_inicio,
+                      DATE '{cfg.DATA_REFERENCIA}')         AS idade_meses,
             CASE WHEN e.cnae_fiscal_secundaria IS NULL
                       OR trim(e.cnae_fiscal_secundaria) = '' THEN 0
                  ELSE len(str_split(e.cnae_fiscal_secundaria, ',')) END
@@ -349,8 +366,9 @@ def construir() -> None:
         alvo = (cfg.DIR_BASE / f"{tabela}.parquet").as_posix()
         con.execute(f"COPY {tabela} TO '{alvo}' (FORMAT PARQUET)")
 
-    # Gera o relatório de qualidade e fecha o banco.
+    # Gera os relatórios de qualidade e de linhas descartadas e fecha o banco.
     relatorio_qualidade(con)
+    relatorio_linhas_descartadas(con)
     con.close()
     print(f"\n[fim] Base pronta em {cfg.DIR_BASE}")
 
@@ -385,7 +403,47 @@ def relatorio_qualidade(con: duckdb.DuckDBPyConnection) -> None:
 
 
 # ========================================================================
-# 6. EXECUÇÃO
+# 6. RELATÓRIO DE LINHAS DESCARTADAS NA LEITURA
+# ========================================================================
+#
+# Conta, por arquivo e tipo de defeito, as linhas que a leitura descartou
+# (ver _sql_leitura) e grava em 00_linhas_descartadas.csv. Os arquivos de
+# estabelecimentos são lidos duas vezes (seções 4.2 e 4.6), por isso a
+# contagem considera cada linha uma vez só.
+def relatorio_linhas_descartadas(con: duckdb.DuckDBPyConnection) -> None:
+    print("\n[info] Linhas descartadas na leitura dos arquivos")
+    linhas = []
+    try:
+        linhas = con.execute("""
+            SELECT parse_filename(s.file_path) AS arquivo,
+                   e.error_type                AS defeito,
+                   count(DISTINCT e.line)      AS linhas
+            FROM reject_errors e
+            JOIN reject_scans s USING (scan_id, file_id)
+            GROUP BY ALL
+            ORDER BY arquivo, defeito
+        """).fetchall()
+    except duckdb.CatalogException:
+        # Nenhuma leitura registrou defeito: o registro nem chega a ser criado.
+        pass
+
+    # Mostra o resultado na tela e grava o arquivo.
+    if linhas:
+        for arquivo, defeito, n in linhas:
+            print(f"  {arquivo:<40} {defeito:<20} {n:>10,}")
+        total = sum(n for _, _, n in linhas)
+        print(f"[aviso] {total:,} linha(s) descartada(s) na leitura.")
+    else:
+        print("[ok] Nenhuma linha descartada.")
+    with open(cfg.DIR_SAIDAS / "00_linhas_descartadas.csv", "w",
+              newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["arquivo", "defeito", "linhas"])
+        w.writerows(linhas)
+
+
+# ========================================================================
+# 7. EXECUÇÃO
 # ========================================================================
 #
 # Lê a etapa pedida e executa as funções correspondentes.

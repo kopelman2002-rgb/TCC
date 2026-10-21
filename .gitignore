@@ -1,0 +1,6 @@
+# Dados da Receita e saídas das pesquisas: grandes e com razão social de MEI.
+dados/*
+!dados/README.md
+saidas/
+*.duckdb
+__pycache__/

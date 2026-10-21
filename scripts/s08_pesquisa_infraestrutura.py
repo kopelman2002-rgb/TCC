@@ -263,11 +263,20 @@ def e5_icci(ativos: pd.DataFrame, socios: pd.DataFrame) -> pd.DataFrame:
 
     escores = pd.DataFrame(index=emp.index)
     # Padroniza cada variável, limita os extremos e aplica o peso.
+    # Valor ausente (capital ou data de início em branco) recebe escore 0,
+    # isto é, a média da variável; a contagem desses casos vai para o E5c.
+    ausentes = {}
     for col, peso in componentes.items():
         serie = emp[col].astype(float)
         z = (serie - serie.mean()) / (serie.std(ddof=0) or 1)
-        escores[f"z_{col}"] = z.clip(-3, 3)
+        ausentes[col] = int(z.isna().sum())
+        escores[f"z_{col}"] = z.clip(-3, 3).fillna(0)
         escores[f"z_{col}"] *= peso
+    pd.Series(ausentes, name="valores_ausentes").to_csv(
+        SAIDA / "E5c_valores_ausentes_icci.csv")
+    if sum(ausentes.values()):
+        print(f"[aviso] ICCI: {sum(ausentes.values()):,} valor(es) ausente(s) "
+              "receberam escore 0 (media da variavel).")
 
     # Nota final: soma das cinco partes.
     emp["icci"] = escores.sum(axis=1).round(4)
@@ -313,7 +322,9 @@ def e5_icci(ativos: pd.DataFrame, socios: pd.DataFrame) -> pd.DataFrame:
 # ========================================================================
 #
 # Separa as empresas em 5 grupos parecidos entre si, usando as mesmas
-# variáveis do índice e o mesmo tratamento dos valores extremos.
+# variáveis do índice e o mesmo limite de ±3 nos escores. Diferente do
+# índice, as contagens (unidades, sócios e atividades secundárias) entram
+# em escala logarítmica, para que poucas empresas não formem grupos próprios.
 def e6_clusters(emp: pd.DataFrame, k: int = 5) -> pd.DataFrame:
     try:
         # Carrega a ferramenta de agrupamento; se não estiver instalada, pula esta etapa.

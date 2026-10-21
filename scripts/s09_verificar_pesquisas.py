@@ -8,10 +8,6 @@ Por que existe: foi esta conferência que encontrou os problemas
 corrigidos nas pesquisas (corte de bairros no Gini, mediana do alcance,
 grupos do E6 e rótulo do I6).
 
-Atenção: os blocos 4 e 7 foram escritos ANTES dessas correções. Os
-números que eles calculam continuam certos, mas algumas frases fixas que
-aparecem na tela descrevem a situação antiga (ver comentários nos blocos).
-
 O que confere:
   1. Composição por posição na cadeia e público-alvo (I1).
   2. Relação entre oferta e demanda (I2).
@@ -22,6 +18,8 @@ O que confere:
   7. Tamanho dos grupos de empresas (E6).
   8. Se as faixas do índice de capacidade batem com os percentuais
      definidos (E5).
+  9. Extremos das tabelas da Pesquisa 3 que o relatório exibe só em parte.
+ 10. Estabelecimentos com atividade não informada (código 8888888).
 
 Como rodar (depois das três pesquisas):
     python s09_verificar_pesquisas.py
@@ -57,10 +55,8 @@ i3 = pd.read_csv(P1 / "I3_hhi_por_secao.csv")
 print(i3[["secao_desc", "estabelecimentos", "cnaes_distintos", "hhi",
           "share_dominante_pct", "classificacao"]].head(8).to_string(index=False))
 
-# 4. Compara duas contagens de inativos na base: todos os não ativos e
-# só os baixados e inaptos.
-# Escrito antes da correção do I6. Hoje o I6 já usa só baixados e inaptos;
-# a diferença mostrada aqui explica por que a correção foi necessária.
+# 4. Confere se o I6 conta só baixados e inaptos (e não todos os não
+# ativos), comparando o total do I6 com a contagem direta na base.
 print("\n" + "=" * 72)
 print("4) I6 - descontinuidade: o rotulo 'baixados_ou_inaptos' confere?")
 print("=" * 72)
@@ -69,9 +65,10 @@ base = pd.read_parquet(cfg.DIR_BASE / "base_analitica.parquet",
 vc = base["situacao_cadastral"].value_counts()
 nao_ativos = int(vc.sum() - vc.get("02", 0))
 baixada_inapta = int(vc.get("08", 0) + vc.get("04", 0))
-print(f"  nao-ativos (o que o script conta): {nao_ativos:,}")
-print(f"  baixada+inapta (o que o nome diz): {baixada_inapta:,}")
-print(f"  diferenca (nula+suspensa):         {nao_ativos - baixada_inapta:,}"
+i6 = pd.read_csv(P1 / "I6_descontinuidade.csv")
+print(f"  baixada+inapta na base:          {baixada_inapta:,}")
+print(f"  baixada+inapta somada no I6:     {int(i6['baixados_ou_inaptos'].sum()):,}")
+print(f"  nula+suspensa (fora da taxa):    {nao_ativos - baixada_inapta:,}"
       f"  ({100*(nao_ativos-baixada_inapta)/len(base):.2f}% da base)")
 
 # 5. Mostra o Gini dos três cortes, os 5 maiores bairros e o peso dos 10 maiores.
@@ -117,15 +114,14 @@ print("7) E6 - os clusters sao utilizaveis?")
 print("=" * 72)
 e6 = pd.read_csv(P3 / "E6a_perfil_clusters.csv", index_col=0)
 print(e6.to_string())
-# Atenção: as frases abaixo descrevem o E6 ANTES da correção. Hoje os
-# cinco grupos têm tamanho razoável e o E6 já usa escala logarítmica e
-# limite de extremos. A tabela impressa acima mostra a situação atual.
-print("\n  Dois clusters com 3 e 20 empresas concentram outliers de 'unidades'.")
+# Antes da correção do E6, dois grupos tinham 3 e 20 empresas, formados só
+# por valores extremos de 'unidades'. Confere se o menor grupo passa de 1%.
+menor = int(e6["empresas"].min())
+print(f"\n  menor grupo: {menor:,} empresas "
+      f"({100*menor/e6['empresas'].sum():.2f}% do total; deve passar de 1%)")
 emp_n = pd.read_csv(P3 / "E5a_icci_por_empresa.csv", usecols=["unidades"])
 print(f"  unidades: mediana={emp_n['unidades'].median():.0f} "
       f"p99={emp_n['unidades'].quantile(.99):.0f} max={emp_n['unidades'].max():,.0f}")
-print("  O E5 (ICCI) trunca o escore-z em +-3; o E6 NAO trunca nem usa log em")
-print("  'unidades', entao os extremos dominam a formacao dos centroides.")
 
 # 8. Confere se as faixas do índice (25%, 25%, 25%, 15%, 10%) foram respeitadas.
 print("\n" + "=" * 72)
@@ -139,3 +135,29 @@ for k, esperado in alvo.items():
     obtido = 100 * vc5.get(k, 0) / len(e5)
     print(f"  {k:<12} {vc5.get(k,0):>9,}  {obtido:>6.2f}%  (esperado {esperado}%)")
 print(f"  total de empresas no ICCI: {len(e5):,}")
+
+# 9. O relatório da Pesquisa 3 exibe só 14 seções no E2 (as maiores) e no
+# E5 (as de maior índice). Mostra os extremos na tabela completa, para que
+# nenhuma conclusão dependa só das seções exibidas (o mesmo cuidado do I3).
+print("\n" + "=" * 72)
+print("9) Extremos nas tabelas completas da Pesquisa 3")
+print("=" * 72)
+e2b = pd.read_csv(P3 / "E2b_societario_por_secao.csv", index_col=0)
+e5b = pd.read_csv(P3 / "E5b_icci_por_secao.csv", index_col=0)
+for tab, col in ((e2b, "pct_socio_unico"), (e2b, "pct_com_socio_pj"),
+                 (e5b, "pct_alta_capacidade")):
+    s = tab[col].dropna()
+    print(f"  {col:<20} minimo {s.min():6.2f}% ({s.idxmin()})"
+          f" | maximo {s.max():6.2f}% ({s.idxmax()})")
+
+# 10. A Receita usa o código 8888888 para atividade não informada. Como a
+# classificação do s01_config.py usa os dois primeiros dígitos, esse código
+# cai na divisão 88 (assistência social, varejo, B2C). Mostra quantos são.
+print("\n" + "=" * 72)
+print("10) Atividade nao informada (CNAE 8888888)")
+print("=" * 72)
+cnae = pd.read_parquet(cfg.DIR_BASE / "base_analitica.parquet",
+                       columns=["cnae_fiscal_principal", "situacao_cadastral"])
+x = cnae[cnae["cnae_fiscal_principal"] == "8888888"]
+print(f"  registros: {len(x):,} | ativos: {int((x['situacao_cadastral'] == '02').sum()):,}")
+print(f"  classificacao atribuida: {cfg.classificar_cnae('8888888')}")

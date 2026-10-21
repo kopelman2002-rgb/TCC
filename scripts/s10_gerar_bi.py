@@ -129,6 +129,21 @@ DESTINO.mkdir(parents=True, exist_ok=True)
 # Carrega todos os dados.
 D = carregar_dados(SAIDAS)
 
+# Os textos de leitura, os números do topo e os nomes dos perfis do E6 foram
+# escritos para a base da competência 2026-08. Se a base mudar, as tabelas
+# se atualizam, mas esses textos não: o aviso abaixo lembra de revisá-los.
+TEXTOS_ESCRITOS_PARA = {"registros": 2_708_242, "ativos": 1_042_405,
+                        "empresas": 1_006_894}
+_base_atual = {
+    "registros": int(sum(r["registros"] for r in D["i6"])),
+    "ativos": int(next(r["Total"] for r in D["i1"] if r["elo_cadeia"] == "Total")),
+    "empresas": int(sum(r["empresas"] for r in D["e5estratos"])),
+}
+if _base_atual != TEXTOS_ESCRITOS_PARA:
+    print(f"[aviso] A base mudou desde que os textos dos paineis foram escritos "
+          f"({TEXTOS_ESCRITOS_PARA} -> {_base_atual}). Revise os textos de "
+          "leitura, os numeros do topo e os nomes dos perfis do E6.")
+
 # ========================================================================
 # 2. FORMATAÇÃO DE TEXTO E NÚMEROS
 # ========================================================================

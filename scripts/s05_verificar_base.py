@@ -16,6 +16,8 @@ O que mostra:
   5. Estados com mais unidades na rede nacional.
   6. Valores mais comuns de capital social (confere a conversão para número).
   7. Data de início de atividade mais antiga e mais recente.
+  8. Se a idade gravada na base corresponde à data de referência fixada
+     no s01_config.py (DATA_REFERENCIA).
 
 Como rodar (depois de cada nova montagem da base):
     python s05_verificar_base.py
@@ -99,6 +101,19 @@ for r in con.execute("""
 print("\n=== datas: minimo e maximo de data_inicio ===")
 print(" ", con.execute(
     "SELECT min(data_inicio), max(data_inicio) FROM base_analitica").fetchone())
+
+# 8. Idade gravada na base contra a idade contada até DATA_REFERENCIA.
+# Zero divergências significa que montar a base de novo, com a data fixa,
+# reproduz as mesmas idades usadas nas pesquisas.
+print(f"\n=== idade_meses x DATA_REFERENCIA ({cfg.DATA_REFERENCIA}) ===")
+dif = con.execute(f"""
+    SELECT count(*) FROM base_analitica
+    WHERE idade_meses IS DISTINCT FROM
+          date_diff('month', data_inicio, DATE '{cfg.DATA_REFERENCIA}')
+""").fetchone()[0]
+print(f"  registros com idade divergente: {dif:,}")
+if dif:
+    print("  [aviso] A base foi montada em outro mes: ajuste DATA_REFERENCIA.")
 
 # Fecha o banco.
 con.close()

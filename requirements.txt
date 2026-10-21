@@ -1,0 +1,8 @@
+duckdb>=1.2
+pandas>=2.0
+pyarrow
+numpy
+matplotlib
+scikit-learn
+requests
+tqdm

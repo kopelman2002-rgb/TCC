@@ -63,7 +63,6 @@ SINONIMOS_BAIRRO = {
     "BARRA DA TIJUCA RJ": "BARRA DA TIJUCA",
     "JACAREPAGUA RJ": "JACAREPAGUA",
     "COPACABANA RJ": "COPACABANA",
-    "SAO CRISTOVAO": "SAO CRISTOVAO",
     "STA TERESA": "SANTA TERESA",
     "STO CRISTO": "SANTO CRISTO",
     "V ISABEL": "VILA ISABEL",
@@ -149,11 +148,17 @@ def d1_bairros(ativos: pd.DataFrame) -> pd.DataFrame:
     # concentram em poucos bairros (0 = distribuição igual; 1 = tudo em um).
     integrar = np.trapezoid if hasattr(np, "trapezoid") else np.trapz  # NumPy 2.x
 
+    # Curva de Lorenz: bairros do menor para o maior, partindo da origem
+    # (0, 0), para que a área sob a curva inclua o primeiro bairro.
+    def _lorenz(valores: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+        v = np.sort(np.asarray(valores, dtype=float))
+        acum = np.concatenate([[0.0], np.cumsum(v) / v.sum()])
+        eixo = np.arange(len(v) + 1) / len(v)
+        return eixo, acum
+
     # Calcula o índice a partir da curva de Lorenz.
     def _gini(valores: np.ndarray) -> float:
-        v = np.sort(np.asarray(valores, dtype=float))
-        acum = np.cumsum(v) / v.sum()
-        eixo = np.arange(1, len(v) + 1) / len(v)
+        eixo, acum = _lorenz(valores)
         return float(1 - 2 * integrar(acum, eixo))
 
     # Calcula o índice com três cortes de bairro, como teste de sensibilidade.
@@ -181,13 +186,11 @@ def d1_bairros(ativos: pd.DataFrame) -> pd.DataFrame:
     # Gráfico: curva de Lorenz dos três cortes (o principal em destaque).
     fig, ax = plt.subplots(figsize=(5.5, 5))
     for rotulo, serie in cortes.items():
-        v = np.sort(serie.values.astype(float))
-        acum = np.cumsum(v) / v.sum()
-        eixo = np.arange(1, len(v) + 1) / len(v)
+        eixo, acum = _lorenz(serie.values)
         principal = rotulo.startswith(f"min_{MINIMO_BAIRRO}")
         ax.plot(eixo, acum, lw=2.2 if principal else 1.2,
                 ls="-" if principal else ":",
-                label=f"{rotulo} (n={len(v)}, Gini={_gini(v):.3f})")
+                label=f"{rotulo} (n={len(serie)}, Gini={_gini(serie.values):.3f})")
     ax.plot([0, 1], [0, 1], ls="--", color="gray", label="Equidistribuicao")
     ax.set_xlabel("Proporcao acumulada de bairros")
     ax.set_ylabel("Proporcao acumulada de estabelecimentos")

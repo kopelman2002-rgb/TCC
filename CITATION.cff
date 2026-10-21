@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "Se usar este código, cite o trabalho como abaixo."
+title: "Dados abertos do CNPJ e inteligência artificial: análise do tecido empresarial do município do Rio de Janeiro"
+type: software
+authors:
+  - family-names: Kopelman
+    given-names: Eduardo
+year: 2026
+license: MIT
+repository-code: "https://github.com/kopelman2002-rgb/TCC"
+keywords:
+  - dados abertos
+  - CNPJ
+  - inteligência artificial
+  - indicadores de concentração
+  - capacidade instalada
+preferred-citation:
+  type: thesis
+  title: "Dados abertos do CNPJ e inteligência artificial: análise do tecido empresarial do município do Rio de Janeiro"
+  authors:
+    - family-names: Kopelman
+      given-names: Eduardo
+  year: 2026
+  thesis-type: "Projeto de Graduação (Engenharia de Produção)"
+  institution:
+    name: "Pontifícia Universidade Católica do Rio de Janeiro"
+    city: "Rio de Janeiro"
+    country: BR

@@ -6,7 +6,7 @@ apenas guarda as definições que todos os outros scripts usam.
 
 O que está aqui:
   1. Pastas de trabalho do projeto.
-  2. Endereço e acesso à fonte de dados da Receita Federal.
+  2. Endereço e acesso à fonte de dados da Receita Federal e datas de referência.
   3. Ordem das colunas de cada arquivo da Receita (os arquivos não têm cabeçalho).
   4. Recorte geográfico (município do Rio de Janeiro).
   5. Tabelas que traduzem códigos em descrições.
@@ -23,8 +23,13 @@ from pathlib import Path
 # 1. PASTAS DE TRABALHO
 # ========================================================================
 #
-# Pasta principal do projeto (um nível acima da pasta de scripts).
-RAIZ = Path(__file__).resolve().parent.parent
+# Pasta onde ficam os scripts.
+PASTA_SCRIPTS = Path(__file__).resolve().parent
+# Pasta principal do projeto. Os scripts ficam na subpasta "scripts" e os
+# dados na pasta "dados", um nível acima. Se essa pasta não existir (scripts
+# copiados soltos para outro lugar), usa a própria pasta dos scripts.
+RAIZ = (PASTA_SCRIPTS.parent if (PASTA_SCRIPTS.parent / "dados").is_dir()
+        else PASTA_SCRIPTS)
 
 # Pastas de cada etapa: arquivos baixados, arquivos descompactados,
 # base tratada e resultados das pesquisas.
@@ -55,6 +60,12 @@ AUTH = (SHARE_TOKEN, "")
 
 # Mês de referência dos dados. Fixado para que o resultado seja reproduzível.
 COMPETENCIA = "2026-08"
+
+# Data até a qual se conta a idade das empresas: o dia em que a base foi
+# montada (17/09/2026). Fixada para que a idade não mude conforme o dia em
+# que o script roda. A idade é contada em meses de calendário, então
+# qualquer dia de setembro de 2026 dá o mesmo resultado.
+DATA_REFERENCIA = "2026-09-17"
 
 # Arquivos divididos em 10 partes cada.
 ARQUIVOS_PARTICIONADOS = {
